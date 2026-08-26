@@ -1,0 +1,244 @@
+@import 'tailwindcss';
+
+/* =========================================================================
+   THE LIVING LAW — Design System (Tailwind v4 @theme tokens)
+   Editorial / wellness / nature aesthetic
+   ========================================================================= */
+@theme {
+  /* Typography */
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-body: 'Lora', ui-serif, Georgia, serif;
+
+  /* Brand — deep forest greens (primary) */
+  --color-forest-50: hsl(143, 85%, 96%);
+  --color-forest-100: hsl(145, 92%, 87%);
+  --color-forest-200: hsl(144, 80%, 70%);
+  --color-forest-300: hsl(142, 70%, 50%);
+  --color-forest-400: hsl(141, 75%, 38%);
+  --color-forest-500: hsl(140, 80%, 30%);
+  --color-forest-600: hsl(140, 100%, 27%);
+  --color-forest-700: hsl(145, 80%, 20%);
+  --color-forest-800: hsl(147, 100%, 12%);
+  --color-forest-900: hsl(150, 100%, 6%);
+
+  /* Earth — terracotta / amber accents */
+  --color-earth-300: hsl(46, 87%, 65%);
+  --color-earth-400: hsl(40, 90%, 55%);
+  --color-earth-500: hsl(31, 92%, 45%);
+  --color-earth-600: hsl(25, 80%, 38%);
+
+  /* Warm neutral ramp (paper / parchment) */
+  --color-paper-50: hsl(60, 30%, 99%);
+  --color-paper-100: hsl(54, 25%, 97%);
+  --color-paper-200: hsl(48, 20%, 94%);
+  --color-paper-300: hsl(42, 12%, 86%);
+  --color-paper-400: hsl(40, 8%, 60%);
+  --color-paper-500: hsl(40, 6%, 40%);
+  --color-paper-700: hsl(40, 8%, 22%);
+  --color-paper-800: hsl(40, 10%, 14%);
+  --color-paper-900: hsl(40, 12%, 7%);
+
+  /* Semantic */
+  --color-mint: hsl(150, 86%, 65%);
+  --color-gold: hsl(46, 87%, 65%);
+
+  /* Container */
+  --spacing: 0.25rem;
+}
+
+/* Light theme (default) */
+:root {
+  --bg: var(--color-paper-50);
+  --bg-elevated: #ffffff;
+  --bg-muted: var(--color-paper-200);
+  --fg: var(--color-paper-900);
+  --fg-muted: var(--color-paper-500);
+  --border: hsl(40, 15%, 88%);
+  --primary: var(--color-forest-600);
+  --primary-fg: #ffffff;
+  --accent: var(--color-earth-500);
+}
+
+/* Dark theme */
+.dark {
+  --bg: var(--color-forest-900);
+  --bg-elevated: var(--color-forest-800);
+  --bg-muted: hsl(150, 40%, 10%);
+  --fg: var(--color-paper-100);
+  --fg-muted: hsl(40, 12%, 72%);
+  --border: hsl(150, 30%, 18%);
+  --primary: var(--color-forest-300);
+  --primary-fg: var(--color-forest-900);
+  --accent: var(--color-earth-400);
+}
+
+/* Map semantic tokens to Tailwind utility-friendly custom props */
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--bg-elevated);
+  --color-muted: var(--bg-muted);
+  --color-foreground: var(--fg);
+  --color-muted-foreground: var(--fg-muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-accent: var(--accent);
+}
+
+/* Base */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-feature-settings: 'kern', 'liga';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  ::selection {
+    background: var(--color-forest-600);
+    color: #fff;
+  }
+  /* Focus ring */
+  :where(a, button, input, textarea, select):focus-visible {
+    outline: 2px solid var(--color-forest-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* Reusable component classes */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 0.85rem 1.5rem;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-fg);
+  }
+  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--border);
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg);
+  }
+  .btn-ghost:hover { background: var(--bg-muted); }
+
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    box-shadow: 0 18px 40px -20px rgba(13, 59, 31, 0.28);
+    transform: translateY(-4px);
+    border-color: var(--primary);
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-earth-500);
+  }
+
+  .prose-living p {
+    font-family: var(--font-body);
+    font-size: 1.075rem;
+    line-height: 1.85;
+    color: var(--fg);
+    margin-bottom: 1.35rem;
+  }
+  .prose-living h2 {
+    font-size: 1.9rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose-living h3 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+  }
+  .prose-living blockquote {
+    border-left: 3px solid var(--primary);
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: var(--fg-muted);
+    margin: 1.75rem 0;
+  }
+}
+
+/* Reading progress bar (articles) */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-forest-500), var(--color-earth-400));
+  z-index: 60;
+  transition: width 0.1s ease-out;
+}
+
+/* Smooth marquee for pledge counter etc. */
+@keyframes float-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-float-in { animation: float-in 0.7s ease-out both; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: articles only */
+@media print {
+  header, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}
